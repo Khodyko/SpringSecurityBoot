@@ -29,11 +29,10 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/actuator/health").permitAll()
+                                .requestMatchers("/actuator/health", "/login", "/logout").permitAll()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .requestMatchers("/user/**").hasAnyRole("ADMIN", "USER")
-                                .requestMatchers("/logout").permitAll()
-                                .requestMatchers("/login").permitAll()
+                                .anyRequest().denyAll()
                 )
                 .exceptionHandling((ex)->ex.accessDeniedHandler(defaultAccessDeniedHandler))
                 .formLogin(login-> login
