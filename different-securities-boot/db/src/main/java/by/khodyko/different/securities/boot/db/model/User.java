@@ -1,6 +1,7 @@
 package by.khodyko.different.securities.boot.db.model;
 
 
+import by.khodyko.different.securities.boot.db.enums.Role;
 import jakarta.persistence.*;
 
 @Entity
@@ -19,6 +20,9 @@ public class User {
 
     @Column(nullable = false)
     private boolean enabled;
+
+   @Enumerated(EnumType.STRING)
+    private Role role;
 
     // Конструкторы, геттеры и сеттеры
 
@@ -44,6 +48,14 @@ public class User {
 
     public String getUsername() {
         return username;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public void setUsername(String username) {
