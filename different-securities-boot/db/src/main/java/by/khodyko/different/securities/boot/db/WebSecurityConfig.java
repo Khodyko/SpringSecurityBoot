@@ -26,7 +26,8 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((authorize) ->
                         authorize
-                                .requestMatchers("/actuator/health", "/login", "/logout").permitAll()
+                                .requestMatchers("/actuator/health", "/login", "/logout",
+                                        "/user/registration", "/registration").permitAll()
                                 .requestMatchers("/admin/**").hasAuthority("ADMIN")
                                 .requestMatchers("/user/**").hasAnyAuthority("ADMIN", "USER")
                                 .anyRequest().denyAll()
