@@ -2,13 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Registration</title>
+    <script>
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+
+            // Проверка на минимум 8 символов
+            if (password.length < 8) {
+                alert("Пароль должен содержать минимум 8 символов");
+                return false;
+            }
+
+            // Проверка на наличие строчных и прописных букв
+            if (!/[a-z]/.test(password) || !/[A-Z]/.test(password)) {
+                alert("Пароль должен содержать минимум одну строчную и одну прописную букву");
+                return false;
+            }
+
+            // Проверка на наличие цифр
+            if (!/\d/.test(password)) {
+                alert("Пароль должен содержать минимум одну цифру");
+                return false;
+            }
+
+            // Проверка на наличие специальных символов
+            if (!/[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(password)) {
+                alert("Пароль должен содержать минимум один специальный символ");
+                return false;
+            }
+
+            // Если все проверки пройдены, отправляем форму
+            return true;
+        }
+    </script>
 </head>
 <body>
-<form th:action="@{/user/registration}" method="post">
+<form action="/user/registration" method="post" onsubmit="return validatePassword()">
     <h1>Registration</h1>
-    <div><label> User Name : <input type="text" name="userName"/> </label></div>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <div><input type="submit" value="Sign In"/></div>
+    <div>
+        <label>User Name:</label>
+        <input type="text" name="userName" required>
+    </div>
+    <div>
+        <label>Password:</label>
+        <input type="password" id="password" name="password" required>
+    </div>
+    <input type="submit" value="Sign In">
 </form>
 </body>
 </html>
