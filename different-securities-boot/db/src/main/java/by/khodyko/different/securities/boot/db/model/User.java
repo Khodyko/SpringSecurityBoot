@@ -1,8 +1,10 @@
 package by.khodyko.different.securities.boot.db.model;
 
-
 import by.khodyko.different.securities.boot.db.enums.Role;
+
 import jakarta.persistence.*;
+
+import java.util.Objects;
 
 @Entity
 @Table(name = "users")
@@ -21,22 +23,26 @@ public class User {
     @Column(nullable = false)
     private boolean enabled;
 
-   @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
     private Role role;
 
-    // Конструкторы, геттеры и сеттеры
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinColumn(name = "login_attempts_id", referencedColumnName = "id")
+    private LoginAttempt loginAttempt =new LoginAttempt();
 
     public User() {
         // Пустой конструктор (обязателен для JPA)
     }
 
-    public User(String username, String password, boolean enabled) {
+    public User(Long id, String username, String password, boolean enabled, Role role, LoginAttempt loginAttempt) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.enabled = enabled;
+        this.role = role;
+        this.loginAttempt = loginAttempt;
     }
-
-    // Геттеры и сеттеры для полей класса
 
     public Long getId() {
         return id;
@@ -48,14 +54,6 @@ public class User {
 
     public String getUsername() {
         return username;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public void setUsername(String username) {
@@ -76,5 +74,21 @@ public class User {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public LoginAttempt getLoginAttempt() {
+        return loginAttempt;
+    }
+
+    public void setLoginAttempt(LoginAttempt loginAttempt) {
+        this.loginAttempt = Objects.requireNonNullElseGet(loginAttempt, LoginAttempt::new);
     }
 }
