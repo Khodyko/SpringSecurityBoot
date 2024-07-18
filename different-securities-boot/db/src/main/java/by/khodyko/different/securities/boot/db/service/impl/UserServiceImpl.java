@@ -34,7 +34,7 @@ public class UserServiceImpl implements UserService {
             userDetailsDTO.setUsername(username);
             userDetailsDTO.setRole(user.getRole());
             userDetailsDTO.setLocked(LoginAttemptUtil.isAttemptBlocked(user.getLoginAttempt()));
-            userDetailsDTO.setEnabled(true);
+            userDetailsDTO.setEnabled(user.isEnabled());
             userDetailsDTO.setId(user.getId());
             userDetailsDTO.setPassword(user.getPassword());
             return userDetailsDTO;
