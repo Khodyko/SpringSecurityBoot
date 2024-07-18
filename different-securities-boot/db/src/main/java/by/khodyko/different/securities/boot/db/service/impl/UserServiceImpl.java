@@ -5,13 +5,12 @@ import by.khodyko.different.securities.boot.db.model.LoginAttempt;
 import by.khodyko.different.securities.boot.db.model.User;
 import by.khodyko.different.securities.boot.db.service.LoginAttemptService;
 import by.khodyko.different.securities.boot.db.service.UserService;
+import by.khodyko.different.securities.boot.db.util.LoginAttemptUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.Optional;
 
 @Service
@@ -27,30 +26,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> userOpt = userRepository.findByUsername(username);
         if (userOpt.isPresent()) {
             User user = userOpt.get();
-            if (this.isAttemptsLoginAvailable(user.getLoginAttempt())) {
-                return new org.springframework.security.core.userdetails.User(
-                        user.getUsername(),
-                        user.getPassword(),
-                        Collections.singleton(user.getRole()));
-            }
+            User userDetailsDTO = new User();
+            userDetailsDTO.setUsername(username);
+            userDetailsDTO.setRole(user.getRole());
+            userDetailsDTO.setLocked(LoginAttemptUtil.isAttemptBlocked(user.getLoginAttempt()));
+            userDetailsDTO.setEnabled(true);
+            userDetailsDTO.setId(user.getId());
+            userDetailsDTO.setPassword(user.getPassword());
+            return userDetailsDTO;
         }
         throw new UsernameNotFoundException("Can't find user by name:" + username);
-    }
-
-    @Override
-    public Boolean isAttemptsLoginAvailable(LoginAttempt loginAttempt) {
-        if (loginAttempt != null) {
-            LocalDateTime lastAttemptTime = loginAttempt.getLastFailedLoginTime().plusMinutes(20);
-            Boolean isTimeAttemptPassed = lastAttemptTime.isBefore(LocalDateTime.now());
-            Boolean isAttemptsAvailable = loginAttempt.getFailedLoginAttempts() < 3;
-            return isTimeAttemptPassed || isAttemptsAvailable;
-        } else {
-            return true;
-        }
     }
 
     @Override

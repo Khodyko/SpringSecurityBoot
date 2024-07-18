@@ -7,7 +7,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import java.util.Optional;
 
 public interface UserService extends UserDetailsService {
-    Boolean isAttemptsLoginAvailable(LoginAttempt loginAttempt);
 
     Optional<User> getUserByUserName(String userName);
 

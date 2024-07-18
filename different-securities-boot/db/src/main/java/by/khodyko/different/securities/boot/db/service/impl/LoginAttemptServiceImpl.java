@@ -18,4 +18,10 @@ public class LoginAttemptServiceImpl implements LoginAttemptService {
     public LoginAttempt save(LoginAttempt loginAttempt) {
         return loginAttemptRepository.save(loginAttempt);
     }
+
+    @Override
+    public LoginAttempt getLoginAttemptByUserName(String userName) {
+        return loginAttemptRepository.getLoginAttemptByUserName(userName);
+    }
+
 }

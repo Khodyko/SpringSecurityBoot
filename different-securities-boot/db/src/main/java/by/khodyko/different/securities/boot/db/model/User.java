@@ -3,12 +3,16 @@ package by.khodyko.different.securities.boot.db.model;
 import by.khodyko.different.securities.boot.db.enums.Role;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Objects;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,6 +30,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private Boolean isLocked=false;
+
 
     @OneToOne(cascade=CascadeType.ALL)
     @JoinColumn(name = "login_attempts_id", referencedColumnName = "id")
@@ -33,15 +39,6 @@ public class User {
 
     public User() {
         // Пустой конструктор (обязателен для JPA)
-    }
-
-    public User(Long id, String username, String password, boolean enabled, Role role, LoginAttempt loginAttempt) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-        this.enabled = enabled;
-        this.role = role;
-        this.loginAttempt = loginAttempt;
     }
 
     public Long getId() {
@@ -56,8 +53,28 @@ public class User {
         return username;
     }
 
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !isLocked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return new ArrayList<Role>(){{add(role);}};
     }
 
     public String getPassword() {
@@ -90,5 +107,13 @@ public class User {
 
     public void setLoginAttempt(LoginAttempt loginAttempt) {
         this.loginAttempt = Objects.requireNonNullElseGet(loginAttempt, LoginAttempt::new);
+    }
+
+    public Boolean getLocked() {
+        return isLocked;
+    }
+
+    public void setLocked(Boolean locked) {
+        isLocked = locked;
     }
 }

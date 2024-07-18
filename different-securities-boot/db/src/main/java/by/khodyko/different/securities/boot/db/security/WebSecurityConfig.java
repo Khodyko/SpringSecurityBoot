@@ -1,6 +1,8 @@
 package by.khodyko.different.securities.boot.db.security;
 
+import by.khodyko.different.securities.boot.db.dao.LoginAttemptRepository;
 import by.khodyko.different.securities.boot.db.handler.DefaultAccessDeniedHandler;
+import by.khodyko.different.securities.boot.db.service.LoginAttemptService;
 import by.khodyko.different.securities.boot.db.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,14 +15,14 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig{
 
     private DefaultAccessDeniedHandler defaultAccessDeniedHandler;
-    private UserService userService;
+    private LoginAttemptService loginAttemptService;
 
-    public WebSecurityConfig(DefaultAccessDeniedHandler defaultAccessDeniedHandler, UserService userService) {
+    public WebSecurityConfig(DefaultAccessDeniedHandler defaultAccessDeniedHandler, LoginAttemptService loginAttemptService) {
         this.defaultAccessDeniedHandler = defaultAccessDeniedHandler;
-        this.userService = userService;
+        this.loginAttemptService = loginAttemptService;
     }
 
     @Bean
@@ -55,7 +57,7 @@ public class WebSecurityConfig {
 
     @Bean
     public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new CustomAuthenticationFailureHandler(userService);
+        return new CustomAuthenticationFailureHandler(loginAttemptService);
     }
 
 }

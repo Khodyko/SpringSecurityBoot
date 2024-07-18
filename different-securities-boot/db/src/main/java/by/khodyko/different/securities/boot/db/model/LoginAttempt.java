@@ -39,4 +39,11 @@ public class LoginAttempt {
         lastFailedLoginTime = LocalDateTime.now();
     }
 
+    public void setLastFailedLoginTime(LocalDateTime lastFailedLoginTime) {
+        this.lastFailedLoginTime = lastFailedLoginTime;
+    }
+
+    public void setFailedLoginAttempts(int failedLoginAttempts) {
+        this.failedLoginAttempts = failedLoginAttempts;
+    }
 }
