@@ -1,13 +1,12 @@
 package by.khodyko.different.securities.boot.db.controller;
 
 import by.khodyko.different.securities.boot.db.enums.Role;
+import by.khodyko.different.securities.boot.db.model.LoginAttempt;
 import by.khodyko.different.securities.boot.db.model.User;
 import by.khodyko.different.securities.boot.db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class UserController {
@@ -20,14 +19,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "/registration")
-    public String registration(){
+    public String registration() {
         return "registration";
     }
 
-    @PostMapping
-    @RequestMapping(value = "/user/registration")
-    public String createUser(@RequestParam String userName, @RequestParam String password){
-        User user=new User();
+    @PostMapping(value = "/user/registration")
+    public String createUser(@RequestParam(name = "userName") String userName,
+                             @RequestParam(name = "password") String password) {
+        User user = new User();
         user.setEnabled(true);
         user.setRole(Role.USER);
         user.setUsername(userName);
