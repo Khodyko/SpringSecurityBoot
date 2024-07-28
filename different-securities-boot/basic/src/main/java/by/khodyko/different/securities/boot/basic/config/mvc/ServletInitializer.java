@@ -1,5 +1,6 @@
-package by.khodyko.different.securities.boot.basic;
+package by.khodyko.different.securities.boot.basic.config.mvc;
 
+import by.khodyko.different.securities.boot.basic.config.app.BasicApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

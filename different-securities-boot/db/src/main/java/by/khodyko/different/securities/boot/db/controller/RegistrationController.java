@@ -1,20 +1,22 @@
 package by.khodyko.different.securities.boot.db.controller;
 
 import by.khodyko.different.securities.boot.db.enums.Role;
-import by.khodyko.different.securities.boot.db.model.LoginAttempt;
 import by.khodyko.different.securities.boot.db.model.User;
 import by.khodyko.different.securities.boot.db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Registration of new User
+ */
 @Controller
-public class UserController {
+public class RegistrationController {
 
     private UserService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public RegistrationController(UserService userService) {
         this.userService = userService;
     }
 

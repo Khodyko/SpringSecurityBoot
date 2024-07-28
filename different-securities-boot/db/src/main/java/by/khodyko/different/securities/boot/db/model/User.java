@@ -1,7 +1,8 @@
 package by.khodyko.different.securities.boot.db.model;
 
-import by.khodyko.different.securities.boot.db.enums.Role;
 
+
+import by.khodyko.different.securities.boot.db.enums.Role;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

@@ -1,4 +1,4 @@
-package by.khodyko.different.securities.boot.db;
+package by.khodyko.different.securities.boot.db.config.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

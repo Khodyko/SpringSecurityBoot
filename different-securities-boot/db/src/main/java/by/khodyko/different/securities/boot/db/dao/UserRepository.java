@@ -6,6 +6,11 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+/**
+ * Repository of User Entity
+ *
+ * @see User
+ */
 @Transactional
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {

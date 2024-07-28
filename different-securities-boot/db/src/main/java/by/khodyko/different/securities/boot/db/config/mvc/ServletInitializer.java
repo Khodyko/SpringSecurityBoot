@@ -1,5 +1,6 @@
-package by.khodyko.different.securities.boot.db;
+package by.khodyko.different.securities.boot.db.config.mvc;
 
+import by.khodyko.different.securities.boot.db.config.app.DbApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 

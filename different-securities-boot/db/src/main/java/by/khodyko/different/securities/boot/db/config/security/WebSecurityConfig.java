@@ -1,9 +1,6 @@
-package by.khodyko.different.securities.boot.db.security;
+package by.khodyko.different.securities.boot.db.config.security;
 
-import by.khodyko.different.securities.boot.db.dao.LoginAttemptRepository;
-import by.khodyko.different.securities.boot.db.handler.DefaultAccessDeniedHandler;
 import by.khodyko.different.securities.boot.db.service.LoginAttemptService;
-import by.khodyko.different.securities.boot.db.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,6 +22,12 @@ public class WebSecurityConfig{
         this.loginAttemptService = loginAttemptService;
     }
 
+    /**
+     *
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
