@@ -1,5 +1,6 @@
 package by.khodyko.different.securities.boot.oauth.config.mvc;
 
+
 import by.khodyko.different.securities.boot.oauth.config.app.OauthApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
